@@ -4,3 +4,8 @@ Trong code có mở rộng thêm phần Embedding với lý do: thay vì chỉ c
 
 ![image](https://github.com/user-attachments/assets/330a770e-a5eb-4494-80bc-34d6e7748d1f)
 
+Trong phần DSSM, code được triển khai tham khảo theo link https://github.com/RUCAIBox/RecBole và paper https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/cikm2013_DSSM_fullversion.pdf.
+
+Kết quả:
+1. Khi triển khai theo ý tưởng của 2 link tham khảo, kết quả thu được loss trong khoảng 0.5
+2. Thay vì chỉ phân loại nhị phân (ratings>3 - Thích; rating <= 3 - không thích), code này triển khai thêm phần sử dụng cross entropy cho cả 5 lớp ratings. Kết quả thu được loss 1.176 trên tập validation 
