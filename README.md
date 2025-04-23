@@ -24,10 +24,16 @@ Phần này trình bày triển khai mô hình **MIND (Multi-Interest Network wi
 - Sử dụng cơ chế:
   - **Dynamic Routing** để nhóm hành vi người dùng thành các cụm sở thích.
   - **Label-aware Attention** để chọn vector sở thích phù hợp với item mục tiêu.
+  - Kết quả:
+![image](https://github.com/user-attachments/assets/4237ad27-c664-45ff-9daf-5b877c4fb897)
+
 
 ##  Điểm Mới & Cải Tiến: **Tích hợp Multi-Head Attention (MHA)**:
    - Thay thế cơ chế attention truyền thống bằng **Multi-Head Attention**.
    - MHA giúp mô hình học được nhiều góc nhìn (representations) khi liên kết giữa sở thích và item mục tiêu.
+   - Kết quả:
+![image](https://github.com/user-attachments/assets/4d2c6c7f-ba4b-46b8-9c75-f80ef8459575)
+
 
 ## Tóm tắt
 - Triển khai đầy đủ mô hình **MIND** theo paper.
