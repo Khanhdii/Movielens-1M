@@ -51,9 +51,7 @@ Phần này trình bày triển khai mô hình **MIND (Multi-Interest Network wi
 | `--use_mha`     | Kích hoạt Multi-Head Attention                | False     |
 | `--num_heads`   | Số lượng heads cho Multi-Head Attention       | 2         |
 
-Lý do sử dụng Kaggle Notebook cho lần triển khai này:
-
-Em đã quen làm việc trên môi trường local với PyCharm và môi trường ảo để dễ kiểm soát code và thư viện. Do đó, để tiết kiệm thời gian lần này em dùng notebook chạy trên kaggle để tận dụng Nguồn tài nguyên GPU miễn phí giúp tăng tốc quá trình training và Giảm tải cho máy cá nhân, tránh phải treo máy liên tục.
+Lý do sử dụng Kaggle Notebook cho lần triển khai này: Em đã quen làm việc trên môi trường local với PyCharm và môi trường ảo để dễ kiểm soát code và thư viện. Do đó, để tiết kiệm thời gian lần này em dùng notebook chạy trên kaggle để tận dụng Nguồn tài nguyên GPU miễn phí giúp tăng tốc quá trình training và Giảm tải cho máy cá nhân, tránh phải treo máy liên tục.
 
 
 
