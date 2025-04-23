@@ -13,8 +13,6 @@ Kết quả:
 2. Thay vì chỉ phân loại nhị phân (ratings>3 - Thích; rating <= 3 - không thích), code này triển khai thêm phần sử dụng cross entropy cho cả 5 lớp ratings. Kết quả thu được loss 1.176 trên tập validation 4
 
 
-Dưới đây là phiên bản **README.md** chuyên nghiệp, trình bày đầy đủ về dự án, bao gồm cả phần cải tiến **Multi-Head Attention** và **Early Stopping**:
-
 # MIND (Alibaba)
 
 Phần này trình bày triển khai mô hình **MIND (Multi-Interest Network with Dynamic Routing)** dựa trên paper gốc, áp dụng vào tập dữ liệu **MovieLens-1M** để giải quyết bài toán gợi ý. Bên cạnh đó, dự án còn thực hiện các **cải tiến quan trọng** nhằm nâng cao hiệu quả mô hình hóa sở thích người dùng.
