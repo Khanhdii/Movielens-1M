@@ -1,19 +1,3 @@
-Dễ hiểu rồi!  
-Bạn muốn **đảo ngược thứ tự các phần** theo yêu cầu như sau:
-
-- Bắt đầu từ **Seq2Seq** trước.
-- Sau đó đến **MIND (Alibaba)**.
-- Tiếp theo là **DSSM**.
-- Cuối cùng là **Collaborative Filtering**.
-
-Và giữ nguyên nội dung bạn vừa gửi nhưng trình bày đẹp hơn, thêm chút **màu sắc nhẹ nhàng** cho dễ nhìn (khi in hoặc copy vào Word/LaTeX).
-
----
-
-Dưới đây là bản đã **đảo ngược và trình bày đẹp**:
-
----
-
 # 📚 Seq2Seq
 
 ## 1. Giới thiệu mô hình
@@ -25,8 +9,6 @@ Dưới đây là bản đã **đảo ngược và trình bày đẹp**:
 - ✨ **Pytorch Lightning** tối ưu quy trình huấn luyện
 
 Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiếng Pháp.
-
----
 
 ## 2. Cấu trúc hệ thống
 
@@ -45,8 +27,6 @@ Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiế
   - **Greedy Search**
   - **Beam Search**
 
----
-
 ## 3. Quy trình huấn luyện
 
 - **Framework:** PyTorch Lightning.
@@ -56,8 +36,6 @@ Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiế
 - **Embedding:** 
   - Sử dụng **GloVe 840B** (nếu có).
 - **Tối ưu hóa:** Adam + ReduceLROnPlateau.
-
----
 
 ## 4. Cải tiến so với Notebook gốc
 
@@ -93,8 +71,6 @@ Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiế
 ### Kết quả truyền thống:
 ![image](https://github.com/user-attachments/assets/4237ad27-c664-45ff-9daf-5b877c4fb897)
 
----
-
 ## 2. Điểm mới & cải tiến
 ✨ **Tích hợp Multi-Head Attention (MHA)**:
 - Thay thế attention truyền thống bằng MHA để học được nhiều góc nhìn hơn giữa sở thích và item mục tiêu.
@@ -102,7 +78,6 @@ Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiế
 ### Kết quả cải tiến:
 ![image](https://github.com/user-attachments/assets/4d2c6c7f-ba4b-46b8-9c75-f80ef8459575)
 
----
 
 ## 3. Tóm tắt
 - Triển khai đầy đủ mô hình **MIND**.
@@ -110,8 +85,6 @@ Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiế
 - Áp dụng **EarlyStopping**, lưu **Checkpoint**.
 - Dùng **TensorBoard** theo dõi training/validation.
 - Thao tác dễ dàng bằng tham số dòng lệnh (**args**).
-
----
 
 ## 4. Tham số tùy chỉnh
 
@@ -127,8 +100,6 @@ Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiế
 | `--use_mha`     | Dùng Multi-Head Attention                     | False     |
 | `--num_heads`   | Số lượng heads của MHA                        | 2         |
 
----
-
 ## 5. Ghi chú thêm
 - **Lần này sử dụng Kaggle Notebook**: vì dễ treo máy, không cần bật local IDE như PyCharm.
 
@@ -140,8 +111,6 @@ Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiế
 - Triển khai theo:
   - Link tham khảo: [RecBole DSSM](https://github.com/RUCAIBox/RecBole)
   - Paper gốc: [Deep Structured Semantic Models for Web Search](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/cikm2013_DSSM_fullversion.pdf)
-
----
 
 ## 2. Kết quả thực nghiệm
 - Khi triển khai theo ý tưởng gốc:
@@ -155,8 +124,6 @@ Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiế
 
 ## 1. Giới thiệu mô hình
 - Phương pháp **Collaborative Filtering (CF)** được áp dụng trên tập MovieLens 1M để xây dựng hệ thống gợi ý.
-
----
 
 ## 2. Cải tiến
 
