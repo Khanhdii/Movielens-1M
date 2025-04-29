@@ -57,5 +57,78 @@ Phần này trình bày triển khai mô hình **MIND (Multi-Interest Network wi
 
 **Lý do sử dụng Kaggle Notebook cho lần triển khai này:** Em đã quen làm việc trên môi trường local với PyCharm và môi trường ảo để dễ kiểm soát code và thư viện.Lần này em dùng Kaggle để treo máy mà không cần bật code
 
+# Seq2Seq
+
+## 1. Giới thiệu mô hình
+Đề tài thực hiện xây dựng hệ thống dịch máy từ tiếng Anh sang tiếng Pháp sử dụng kiến trúc Seq2Seq cải tiến với các thành phần mới nhằm nâng cao chất lượng bản dịch, bao gồm:
+- ✨ Self-Attention trong Encoder
+- ✨ Cross-Attention trong Decoder
+- ✨ Multi-Head Attention
+- ✨ Beam Search decoding
+- ✨ Pytorch Lightning để tối ưu huấn luyện và kiểm thử
+
+Dữ liệu được sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiếng Pháp.
+
+---
+
+## 2. Cấu trúc hệ thống
+
+### 2.1. Encoder
+- **Kiến trúc:** BiLSTM hai tầng.
+- **Cải tiến:** 
+  - ✅ Thêm **Self-Attention** sau lớp LSTM để tổng hợp tốt hơn ngữ cảnh.
+  - ✅ Áp dụng **Layer Normalization** và **Dropout** để ổn định quá trình học.
+
+### 2.2. Decoder
+- **Kiến trúc:** LSTM hai tầng.
+- **Cải tiến:** 
+  - ✅ Thêm **Cross-Attention** giúp Decoder lấy thông tin từ Encoder.
+  - ✅ Tăng khả năng tổng hợp và tạo ra câu đầu ra chính xác hơn.
+
+### 2.3. Tổng thể mô hình Seq2Seq
+- 🔥 Hỗ trợ 2 chế độ dịch:
+  - **Greedy Search:** chọn token xác suất cao nhất từng bước.
+  - **Beam Search:** lưu trữ nhiều lựa chọn tốt nhất, tối ưu toàn chuỗi.
+
+---
+
+## 3. Quy trình huấn luyện
+
+- **Framework:** Pytorch Lightning
+- **Kỹ thuật huấn luyện:** 
+  -  **ModelCheckpoint**: lưu mô hình tốt nhất dựa trên `val_loss`.
+  -  **EarlyStopping**: dừng sớm nếu `val_loss` không giảm.
+- **Embedding:** 
+  - Tự động khởi tạo từ **GloVe 840B 300d** nếu có.
+- **Tối ưu hóa:**
+  - `Adam` Optimizer
+  - `ReduceLROnPlateau` Scheduler
+
+---
+
+## 4. Cải tiến so với phiên bản Notebook ban đầu
+
+| Nội dung | Phiên bản Notebook cũ | Phiên bản Mới (Module hóa) |
+|:---|:---|:---|
+| **Attention** | ❌ Không có hoặc đơn giản | ✅ Thêm Self-Attention và Cross-Attention với Multi-Head |
+| **Beam Search** | ❌ Không áp dụng | ✅ Beam Search decoding thông minh |
+| **Tổ chức code** | ❌ Tất cả trong 1 file | ✅ Tách thành các module nhỏ gọn dễ quản lý |
+| **Đánh giá BLEU** | ❌ Thủ công | ✅ BLEU tự động log và hiển thị |
+| **Training** | ❌ Huấn luyện thủ công | ✅ Huấn luyện tự động hóa với Lightning |
+| **EarlyStopping** | ❌ Không có | ✅ Thêm EarlyStopping và Checkpoint |
+| **Xử lý từ vựng** | ❌ Gán thủ công | ✅ Build từ vựng tự động |
+| **Embedding** | ❌ Random | ✅ GloVe pre-trained Embedding |
+
+---
+
+## 5. Kết quả thực nghiệm
+
+🌟 **Sau khi huấn luyện hoàn tất, mô hình đạt kết quả sau trên tập kiểm thử:**
+
+| 🎯 Chỉ số | 📊 Giá trị |
+|:---|:---|
+| **Test BLEU Score** | **0.2992** |
+| **Test Loss** | **2.0750** |
 
 
+> Với BLEU ~30%, đây là kết quả khả quan cho mô hình Seq2Seq đơn giản hóa, có thể được nâng cao hơn nếu áp dụng các kỹ thuật tiền xử lý và mô hình lớn hơn.
