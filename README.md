@@ -127,8 +127,8 @@ Dữ liệu được sử dụng: **fra.txt** gồm các cặp câu tiếng Anh 
 
 | 🎯 Chỉ số | 📊 Giá trị |
 |:---|:---|
-| **Test BLEU Score** | **0.2992** |
-| **Test Loss** | **2.0750** |
+| **Test BLEU Score** | **0.3074** |
+| **Test Loss** | **2.0386** |
 
 
 > Với BLEU ~30%, đây là kết quả khả quan cho mô hình Seq2Seq đơn giản hóa, có thể được nâng cao hơn nếu áp dụng các kỹ thuật tiền xử lý và mô hình lớn hơn.
