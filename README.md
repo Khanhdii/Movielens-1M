@@ -1,73 +1,30 @@
-# Colaborative Filtering
-Trong bài này, phương pháp Collaborative Filtering (CF) được áp dụng để xây dựng hệ thống gợi ý dựa trên tập dữ liệu MovieLens 1M.
+Dễ hiểu rồi!  
+Bạn muốn **đảo ngược thứ tự các phần** theo yêu cầu như sau:
 
-Trong code có mở rộng thêm phần Embedding với lý do: thay vì chỉ chuẩn hóa theo công thức cho movieID và userID. Mô hình có thể sử dụng Embedding để giúp mô hình nắm bắt thêm thông tin, học được các đặc trưng tiềm ẩn từ dữ liệu và cải thiện độ chính xác dự đoán. Lý do của điều này là vì khi embedding, ta có thể tạo được một vector (nhiều hơn 1 chiều) để biểu diễn movieID và userID, từ đó, có nhiều số hạng hơn cho mô bình biến đổi và cập nhật thông tin
+- Bắt đầu từ **Seq2Seq** trước.
+- Sau đó đến **MIND (Alibaba)**.
+- Tiếp theo là **DSSM**.
+- Cuối cùng là **Collaborative Filtering**.
 
-![image](https://github.com/user-attachments/assets/330a770e-a5eb-4494-80bc-34d6e7748d1f)
+Và giữ nguyên nội dung bạn vừa gửi nhưng trình bày đẹp hơn, thêm chút **màu sắc nhẹ nhàng** cho dễ nhìn (khi in hoặc copy vào Word/LaTeX).
 
-# DSSM
-Trong phần DSSM, code được triển khai tham khảo theo link https://github.com/RUCAIBox/RecBole và paper https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/cikm2013_DSSM_fullversion.pdf.
+---
 
-Kết quả:
-1. Khi triển khai theo ý tưởng của 2 link tham khảo, kết quả thu được loss trong khoảng 0.5
-2. Thay vì chỉ phân loại nhị phân (ratings>3 - Thích; rating <= 3 - không thích), code này triển khai thêm phần sử dụng cross entropy cho cả 5 lớp ratings. Kết quả thu được loss 1.176 trên tập validation 4
+Dưới đây là bản đã **đảo ngược và trình bày đẹp**:
 
+---
 
-# MIND (Alibaba)
-
-Phần này trình bày triển khai mô hình **MIND (Multi-Interest Network with Dynamic Routing)** dựa trên paper gốc, áp dụng vào tập dữ liệu **MovieLens-1M** để giải quyết bài toán gợi ý. Bên cạnh đó, dự án còn thực hiện các **cải tiến quan trọng** nhằm nâng cao hiệu quả mô hình hóa sở thích người dùng.
-
-## MIND Truyền Thống
-- MIND giúp biểu diễn **sở thích đa dạng** của người dùng thông qua nhiều vector (multi-interest vectors).
-- Sử dụng cơ chế:
-  - **Dynamic Routing** để nhóm hành vi người dùng thành các cụm sở thích.
-  - **Label-aware Attention** để chọn vector sở thích phù hợp với item mục tiêu.
-  - Kết quả:
-![image](https://github.com/user-attachments/assets/4237ad27-c664-45ff-9daf-5b877c4fb897)
-
-
-##  Điểm Mới & Cải Tiến: **Tích hợp Multi-Head Attention (MHA)**:
-   - Thay thế cơ chế attention truyền thống bằng **Multi-Head Attention**.
-   - MHA giúp mô hình học được nhiều góc nhìn (representations) khi liên kết giữa sở thích và item mục tiêu.
-   - Kết quả:
-![image](https://github.com/user-attachments/assets/4d2c6c7f-ba4b-46b8-9c75-f80ef8459575)
-
-
-## Tóm tắt
-- Triển khai đầy đủ mô hình **MIND** theo paper.
-- Tùy chọn bật/tắt **Multi-Head Attention**.
-- Áp dụng **EarlyStopping** và lưu checkpoint tốt nhất.
-- Xử lý dữ liệu MovieLens theo dạng **sequence behavior**.
-- Tích hợp **TensorBoard** để theo dõi train/val loss.
-- Tùy chỉnh dễ dàng thông qua các tham số dòng lệnh (**args**).
-
-## Tham Số Tùy Chỉnh
-
-| Tham Số         | Mô Tả                                         | Mặc Định  |
-|-----------------|-----------------------------------------------|-----------|
-| `--ratings_path`| Đường dẫn tới file ratings.dat                | `data/ratings.dat` |
-| `--batch_size`  | Kích thước batch                              | 128       |
-| `--seq_len`     | Độ dài sequence hành vi                       | 5         |
-| `--embedding_dim`| Kích thước vector embedding                  | 32        |
-| `--num_interests`| Số lượng vector sở thích (K)                 | 4         |
-| `--lr`          | Learning rate                                 | 0.001     |
-| `--max_epochs`  | Số vòng lặp tối đa                            | 50        |
-| `--use_mha`     | Kích hoạt Multi-Head Attention                | False     |
-| `--num_heads`   | Số lượng heads cho Multi-Head Attention       | 2         |
-
-**Lý do sử dụng Kaggle Notebook cho lần triển khai này:** Em đã quen làm việc trên môi trường local với PyCharm và môi trường ảo để dễ kiểm soát code và thư viện.Lần này em dùng Kaggle để treo máy mà không cần bật code
-
-# Seq2Seq
+# 📚 Seq2Seq
 
 ## 1. Giới thiệu mô hình
-Đề tài thực hiện xây dựng hệ thống dịch máy từ tiếng Anh sang tiếng Pháp sử dụng kiến trúc Seq2Seq cải tiến với các thành phần mới nhằm nâng cao chất lượng bản dịch, bao gồm:
-- ✨ Self-Attention trong Encoder
-- ✨ Cross-Attention trong Decoder
-- ✨ Multi-Head Attention
-- ✨ Beam Search decoding
-- ✨ Pytorch Lightning để tối ưu huấn luyện và kiểm thử
+Đề tài thực hiện xây dựng hệ thống dịch máy từ tiếng Anh sang tiếng Pháp sử dụng kiến trúc Seq2Seq cải tiến với các thành phần mới nhằm nâng cao chất lượng bản dịch:
+- ✨ **Self-Attention** trong Encoder
+- ✨ **Cross-Attention** trong Decoder
+- ✨ **Multi-Head Attention**
+- ✨ **Beam Search** decoding
+- ✨ **Pytorch Lightning** tối ưu quy trình huấn luyện
 
-Dữ liệu được sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiếng Pháp.
+Dữ liệu sử dụng: **fra.txt** gồm các cặp câu tiếng Anh – tiếng Pháp.
 
 ---
 
@@ -75,60 +32,139 @@ Dữ liệu được sử dụng: **fra.txt** gồm các cặp câu tiếng Anh 
 
 ### 2.1. Encoder
 - **Kiến trúc:** BiLSTM hai tầng.
-- **Cải tiến:** 
-  - ✅ Thêm **Self-Attention** sau lớp LSTM để tổng hợp tốt hơn ngữ cảnh.
-  - ✅ Áp dụng **Layer Normalization** và **Dropout** để ổn định quá trình học.
+- ✅ Thêm **Self-Attention** sau LSTM.
+- ✅ Áp dụng **LayerNorm** và **Dropout**.
 
 ### 2.2. Decoder
 - **Kiến trúc:** LSTM hai tầng.
-- **Cải tiến:** 
-  - ✅ Thêm **Cross-Attention** giúp Decoder lấy thông tin từ Encoder.
-  - ✅ Tăng khả năng tổng hợp và tạo ra câu đầu ra chính xác hơn.
+- ✅ Thêm **Cross-Attention** từ Encoder.
+- ✅ Ổn định đầu ra với **LayerNorm**.
 
 ### 2.3. Tổng thể mô hình Seq2Seq
-- 🔥 Hỗ trợ 2 chế độ dịch:
-  - **Greedy Search:** chọn token xác suất cao nhất từng bước.
-  - **Beam Search:** lưu trữ nhiều lựa chọn tốt nhất, tối ưu toàn chuỗi.
+- 🔥 Hỗ trợ dịch bằng:
+  - **Greedy Search**
+  - **Beam Search**
 
 ---
 
 ## 3. Quy trình huấn luyện
 
-- **Framework:** Pytorch Lightning
+- **Framework:** PyTorch Lightning.
 - **Kỹ thuật huấn luyện:** 
-  -  **ModelCheckpoint**: lưu mô hình tốt nhất dựa trên `val_loss`.
-  -  **EarlyStopping**: dừng sớm nếu `val_loss` không giảm.
+  - 📝 ModelCheckpoint
+  - 📝 EarlyStopping
 - **Embedding:** 
-  - Tự động khởi tạo từ **GloVe 840B 300d** nếu có.
-- **Tối ưu hóa:**
-  - `Adam` Optimizer
-  - `ReduceLROnPlateau` Scheduler
+  - Sử dụng **GloVe 840B** (nếu có).
+- **Tối ưu hóa:** Adam + ReduceLROnPlateau.
 
 ---
 
-## 4. Cải tiến so với phiên bản Notebook ban đầu
+## 4. Cải tiến so với Notebook gốc
 
-| Nội dung | Phiên bản Notebook cũ | Phiên bản Mới (Module hóa) |
+| Nội dung | Notebook Cũ | Phiên bản Mới |
 |:---|:---|:---|
-| **Attention** | ❌ Không có hoặc đơn giản | ✅ Thêm Self-Attention và Cross-Attention với Multi-Head |
-| **Beam Search** | ❌ Không áp dụng | ✅ Beam Search decoding thông minh |
-| **Tổ chức code** | ❌ Tất cả trong 1 file | ✅ Tách thành các module nhỏ gọn dễ quản lý |
-| **Đánh giá BLEU** | ❌ Thủ công | ✅ BLEU tự động log và hiển thị |
-| **Training** | ❌ Huấn luyện thủ công | ✅ Huấn luyện tự động hóa với Lightning |
-| **EarlyStopping** | ❌ Không có | ✅ Thêm EarlyStopping và Checkpoint |
-| **Xử lý từ vựng** | ❌ Gán thủ công | ✅ Build từ vựng tự động |
-| **Embedding** | ❌ Random | ✅ GloVe pre-trained Embedding |
+| Attention | ❌ Không có | ✅ Self-Attention + Cross-Attention |
+| Beam Search | ❌ Không áp dụng | ✅ Có |
+| Code Organization | ❌ 1 file | ✅ Module hóa |
+| BLEU Evaluation | ❌ Thủ công | ✅ Tự động log |
+| Training | ❌ Thủ công | ✅ PyTorch Lightning |
 
 ---
 
 ## 5. Kết quả thực nghiệm
 
-🌟 **Sau khi huấn luyện hoàn tất, mô hình đạt kết quả sau trên tập kiểm thử:**
+🌟 **Kết quả trên tập kiểm thử:**
 
 | 🎯 Chỉ số | 📊 Giá trị |
 |:---|:---|
 | **Test BLEU Score** | **0.3074** |
 | **Test Loss** | **2.0386** |
 
+---
 
-> Với BLEU ~30%, đây là kết quả khả quan cho mô hình Seq2Seq đơn giản hóa, có thể được nâng cao hơn nếu áp dụng các kỹ thuật tiền xử lý và mô hình lớn hơn.
+# 🧠 MIND (Alibaba)
+
+## 1. Giới thiệu mô hình
+- **MIND (Multi-Interest Network with Dynamic Routing)** giúp biểu diễn **sở thích đa dạng** của người dùng.
+- Cơ chế:
+  - **Dynamic Routing:** nhóm hành vi thành cụm sở thích.
+  - **Label-aware Attention:** chọn cụm sở thích phù hợp với item mục tiêu.
+
+### Kết quả truyền thống:
+![image](https://github.com/user-attachments/assets/4237ad27-c664-45ff-9daf-5b877c4fb897)
+
+---
+
+## 2. Điểm mới & cải tiến
+✨ **Tích hợp Multi-Head Attention (MHA)**:
+- Thay thế attention truyền thống bằng MHA để học được nhiều góc nhìn hơn giữa sở thích và item mục tiêu.
+
+### Kết quả cải tiến:
+![image](https://github.com/user-attachments/assets/4d2c6c7f-ba4b-46b8-9c75-f80ef8459575)
+
+---
+
+## 3. Tóm tắt
+- Triển khai đầy đủ mô hình **MIND**.
+- Tùy chọn bật/tắt **MHA**.
+- Áp dụng **EarlyStopping**, lưu **Checkpoint**.
+- Dùng **TensorBoard** theo dõi training/validation.
+- Thao tác dễ dàng bằng tham số dòng lệnh (**args**).
+
+---
+
+## 4. Tham số tùy chỉnh
+
+| Tham Số         | Mô Tả                                         | Mặc Định  |
+|-----------------|-----------------------------------------------|-----------|
+| `--ratings_path`| Đường dẫn file ratings.dat                    | `data/ratings.dat` |
+| `--batch_size`  | Batch size                                    | 128       |
+| `--seq_len`     | Độ dài hành vi người dùng                     | 5         |
+| `--embedding_dim`| Kích thước vector embedding                  | 32        |
+| `--num_interests`| Số lượng vector sở thích (K)                 | 4         |
+| `--lr`          | Learning rate                                 | 0.001     |
+| `--max_epochs`  | Số vòng lặp tối đa                            | 50        |
+| `--use_mha`     | Dùng Multi-Head Attention                     | False     |
+| `--num_heads`   | Số lượng heads của MHA                        | 2         |
+
+---
+
+## 5. Ghi chú thêm
+- **Lần này sử dụng Kaggle Notebook**: vì dễ treo máy, không cần bật local IDE như PyCharm.
+
+---
+
+# 🔥 DSSM
+
+## 1. Giới thiệu mô hình
+- Triển khai theo:
+  - Link tham khảo: [RecBole DSSM](https://github.com/RUCAIBox/RecBole)
+  - Paper gốc: [Deep Structured Semantic Models for Web Search](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/cikm2013_DSSM_fullversion.pdf)
+
+---
+
+## 2. Kết quả thực nghiệm
+- Khi triển khai theo ý tưởng gốc:
+  - Loss đạt khoảng **0.5**.
+- Khi phân loại theo **5 mức rating** (multi-class classification bằng cross-entropy):
+  - Loss trên tập validation khoảng **1.176**.
+
+---
+
+# 🎬 Collaborative Filtering (CF)
+
+## 1. Giới thiệu mô hình
+- Phương pháp **Collaborative Filtering (CF)** được áp dụng trên tập MovieLens 1M để xây dựng hệ thống gợi ý.
+
+---
+
+## 2. Cải tiến
+
+- Thay vì chỉ chuẩn hóa `movieID` và `userID`, dự án đã:
+  - Áp dụng **Embedding Layer** cho `movieID` và `userID`.
+  - Nhằm mục đích:
+    - ✅ Học được các **đặc trưng tiềm ẩn** (latent features).
+    - ✅ Biểu diễn ID thành vector nhiều chiều ➔ mô hình dễ học tốt hơn.
+
+### Hình minh họa:
+![image](https://github.com/user-attachments/assets/330a770e-a5eb-4494-80bc-34d6e7748d1f)
