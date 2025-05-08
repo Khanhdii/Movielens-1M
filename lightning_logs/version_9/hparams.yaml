@@ -1,0 +1,21 @@
+args: !!python/object:argparse.Namespace
+  batch_size: 32
+  d_model: 512
+  device: cuda
+  dim_feedforward: 2048
+  dropout: 0.1
+  epochs: 10
+  learning_rate: 0.0001
+  max_len: 50
+  max_vocab_size: 5000
+  nhead: 8
+  num_workers: 4
+  src_eos_idx: 2
+  src_pad_idx: 0
+  src_sos_idx: 1
+  src_vocab_size: 5000
+  tgt_eos_idx: 2
+  tgt_pad_idx: 0
+  tgt_sos_idx: 1
+  tgt_vocab_size: 5000
+  train_file: /mnt/c/Users/Admin/Documents/Recomendation/Seq2Seq/Data/fra.txt
