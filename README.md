@@ -84,7 +84,3 @@ Mô hình tự động đánh giá trên tập test, tính BLEU score.
 - Thêm script suy luận.
 - Tối ưu tham số mô hình.
 - Tăng cường dữ liệu.
-
-## Giấy phép
-
-MIT License (nếu có).
